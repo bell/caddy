@@ -173,6 +173,8 @@ func NewStaticUpstreams(c caddyfile.Dispenser, host string) ([]Upstream, error) 
 				hostHeader := upstream.upstreamHeaders.Get("Host")
 				if strings.Contains(hostHeader, "{host}") {
 					upstream.HealthCheck.Host = strings.Replace(hostHeader, "{host}", host, -1)
+				} else {
+					upstream.HealthCheck.Host = hostHeader
 				}
 			}
 			upstream.wg.Add(1)
